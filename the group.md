@@ -8,5 +8,5 @@ William is the product owner and primary point of contact for this project. He i
 A developer for the project. He got the GitHub Repository set up and aiding with the planning and execution for the B.E.S.S.T. Project. Primarly familiar with working with Java and SQL. Has experience with working with databases from IT work experience. 
 
 ## **Sreeja Reddy Depa**
-
+A member of the development team who helped with the stories and the estimations and project documentation. She is a graduate computer science student familiar with Java and Python
 ## **Spoorthy Kushalnagar Ramesh**
