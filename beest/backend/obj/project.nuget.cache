@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dnaVX7EM8cU=",
+  "dgSpecHash": "KlvML/PhaZY=",
   "success": true,
-  "projectFilePath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/backend/BEEST.csproj",
+  "projectFilePath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
   "expectedPackageFiles": [
     "/Users/williamdow/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/williamdow/.nuget/packages/microsoft.aspnetcore.openapi/8.0.20/microsoft.aspnetcore.openapi.8.0.20.nupkg.sha512",

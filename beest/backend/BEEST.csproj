@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\lang\english\cmudict.dict" Link="lang\english\cmudict.dict" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\lang\spanish\spanish.dict" Link="lang\spanish\spanish.dict" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

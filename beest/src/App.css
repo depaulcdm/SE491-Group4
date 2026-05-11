@@ -1,38 +1,211 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.search-page {
   min-height: 100vh;
+  box-sizing: border-box;
+  padding: 1.75rem clamp(1rem, 4vw, 2.5rem) 2rem;
+  background: #1a1d23;
+  color: #e8eaed;
+}
+
+.search-header {
+  max-width: 52rem;
+  margin: 0 auto 1.5rem;
+  text-align: left;
+}
+
+.search-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.search-subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #9aa0a6;
+  line-height: 1.45;
+}
+
+.search-toolbar {
+  max-width: 52rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.25rem;
+  padding: 1rem 1.15rem;
+  background: #242830;
+  border: 1px solid #353942;
+  border-radius: 10px;
+}
+
+.field {
+  flex: 1 1 12rem;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9aa0a6;
+}
+
+.search-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  color: #e8eaed;
+  background: #1a1d23;
+  border: 1px solid #454b56;
+  border-radius: 6px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #6ab7ff;
+  box-shadow: 0 0 0 2px rgba(106, 183, 255, 0.25);
+}
+
+.mode-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 0.75rem 1.25rem;
 }
 
-.App-link {
-  color: #61dafb;
+.mode-legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #9aa0a6;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: #c4c7cc;
+}
+
+.radio-label input {
+  accent-color: #6ab7ff;
+}
+
+.search-button {
+  flex: 0 0 auto;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0d1117;
+  background: #6ab7ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-button:hover:not(:disabled) {
+  background: #8bc7ff;
+}
+
+.search-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.status-area {
+  max-width: 52rem;
+  margin: 0 auto 0.75rem;
+  min-height: 1.5rem;
+  text-align: left;
+}
+
+.status-error {
+  margin: 0;
+  color: #ff8b8b;
+  font-size: 0.9rem;
+}
+
+.status-info,
+.status-meta {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #9aa0a6;
+}
+
+.results-scroll {
+  max-width: 52rem;
+  margin: 0 auto;
+  max-height: calc(100vh - 13rem);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.results-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.result-card {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: #242830;
+  border: 1px solid #353942;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.result-word {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e8eaed;
+  margin-bottom: 0.5rem;
+}
+
+.pronunciation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.pronunciation-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.phone-chip {
+  display: inline-block;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.8rem;
+  font-family: 'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  color: #b8d4ff;
+  background: #1a1d23;
+  border: 1px solid #353942;
+  border-radius: 4px;
 }

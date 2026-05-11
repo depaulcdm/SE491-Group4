@@ -2980,11 +2980,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/backend/BEEST.csproj",
+      "projectUniqueName": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
       "projectName": "BEEST",
-      "projectPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/backend/BEEST.csproj",
+      "projectPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
       "packagesPath": "/Users/williamdow/.nuget/packages/",
-      "outputPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/backend/obj/",
+      "outputPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/williamdow/.nuget/NuGet/NuGet.Config"

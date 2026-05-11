@@ -12,3 +12,10 @@ Our Speech Therapy Application aims to streamline the workflow of a Speech Langu
 **Backend:** .NET to handle complex filtering and logic
 
 **DataBase:** Utilizing the CMU Pronouncing Dictionary for English and a custom dictionary for Spanish.
+
+## **How To Use**
+**Download Repo:** Download the repository to an accesable location
+
+**Start Backend:** Open a terminal in the directory "{project_root}/beest/backend/", then run the command "dotnet run". Leave this running for the next step.
+
+**Start Frontend:** In a separate terminal, open the directory "{project_root}/beest/" and run the command "npm start"
