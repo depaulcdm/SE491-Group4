@@ -17,6 +17,9 @@ Our Speech Therapy Application aims to streamline the workflow of a Speech Langu
 
 **1. Download Repo:** Download the repository to an accesable location
 
-**2. Start Backend:** Open a terminal in the directory "{project_root}/beest/backend/", then run the command "dotnet run". Leave this running for the next step.
+**2. Start Backend:** Open a terminal in the directory "{project_root}/beest/backend/", then run the command "dotnet run". Leave this running for the next step.                       
+
+- **Worksheet Filter Criteria validation**: `WorksheetFilterCriteriaDto` now supports an optional `SearchTerm` string alongside existing phonetic filters, enforced by input validation bounds (`TotalWordCount` range 1-100).
+- **Backend Unit Tests**: The `BEEST.Tests` project has been expanded to a 14-test suite validating input boundaries, case-insensitive string normalization, and cross-language isolation. To run them, use the exact terminal command: `dotnet test BEEST.Tests/BEEST.Tests.csproj`.
 
 **3. Start Frontend:** In a separate terminal, open the directory "{project_root}/beest/" and run the command "npm start"
