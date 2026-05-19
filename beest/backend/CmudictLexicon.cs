@@ -117,6 +117,54 @@ public sealed class CmudictLexicon
 
         return hits;
     }
+
+    public IReadOnlyList<CmudictSearchHit> GenerateWorksheet(WorksheetFilterCriteriaDto criteria)
+    {
+        var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(criteria, null, null);
+        var validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+        bool isValid = System.ComponentModel.DataAnnotations.Validator.TryValidateObject(criteria, validationContext, validationResults, validateAllProperties: true);
+
+        if (!isValid)
+        {
+            throw new ArgumentException("Invalid criteria");
+        }
+
+        var candidates = _sortedBaseWords.AsEnumerable();
+
+        if (!string.IsNullOrWhiteSpace(criteria.SearchTerm))
+        {
+            var term = criteria.SearchTerm.Trim();
+            candidates = candidates.Where(w => w.Contains(term, StringComparison.OrdinalIgnoreCase));
+        }
+
+        var hits = new List<CmudictSearchHit>();
+        foreach (var baseWord in candidates)
+        {
+            var prons = _byBaseWord[baseWord];
+            bool matchPhonemes = true;
+
+            if (!string.IsNullOrWhiteSpace(criteria.IncludedPhonemes))
+            {
+                var included = criteria.IncludedPhonemes.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                matchPhonemes = prons.Any(p => included.All(inc => p.Contains(inc, StringComparison.OrdinalIgnoreCase)));
+            }
+
+            if (matchPhonemes && !string.IsNullOrWhiteSpace(criteria.ExcludedPhonemes))
+            {
+                var excluded = criteria.ExcludedPhonemes.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                matchPhonemes = prons.Any(p => !excluded.Any(exc => p.Contains(exc, StringComparison.OrdinalIgnoreCase)));
+            }
+
+            if (matchPhonemes)
+            {
+                hits.Add(new CmudictSearchHit(baseWord, prons.ToArray()));
+                if (hits.Count >= criteria.TotalWordCount)
+                    break;
+            }
+        }
+
+        return hits;
+    }
 }
 
 public enum SearchMode
