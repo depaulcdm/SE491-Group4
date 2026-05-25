@@ -237,7 +237,7 @@ export default function WorksheetTab() {
             {results.results.map((item, index) => (
               <li key={`${index}-${item.word}-${item.pronunciation}`} className="result-card">
                 <div className="result-word">
-                  {index + 1}. {item.word}
+                  {item.word}
                 </div>
                 <PronunciationRow pronunciation={item.pronunciation} />
               </li>
