@@ -8,7 +8,9 @@
 
   <ItemGroup>
     <None Include="..\..\lang\english\cmudict.dict" Link="lang\english\cmudict.dict" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\lang\english\cmudict.phones" Link="lang\english\cmudict.phones" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\..\lang\spanish\spanish.dict" Link="lang\spanish\spanish.dict" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\lang\spanish\spanish.phone" Link="lang\spanish\spanish.phone" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

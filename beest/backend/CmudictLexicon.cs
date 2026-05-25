@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -118,52 +119,114 @@ public sealed class CmudictLexicon
         return hits;
     }
 
-    public IReadOnlyList<CmudictSearchHit> GenerateWorksheet(WorksheetFilterCriteriaDto criteria)
+    public WorksheetGenerateResponseDto GenerateWorksheet(
+        WorksheetFilterCriteriaDto criteria,
+        PhoneInventory phones)
     {
-        var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(criteria, null, null);
-        var validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
-        bool isValid = System.ComponentModel.DataAnnotations.Validator.TryValidateObject(criteria, validationContext, validationResults, validateAllProperties: true);
+        var validationContext = new ValidationContext(criteria, null, null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(
+            criteria,
+            validationContext,
+            validationResults,
+            validateAllProperties: true);
 
         if (!isValid)
-        {
             throw new ArgumentException("Invalid criteria");
-        }
 
-        var candidates = _sortedBaseWords.AsEnumerable();
+        var lang = criteria.Language.Trim().ToLowerInvariant();
+        var included = PronunciationAnalyzer.ParsePhonemeTokens(criteria.IncludedPhonemes);
+        var excluded = PronunciationAnalyzer.ParsePhonemeTokens(criteria.ExcludedPhonemes);
 
-        if (!string.IsNullOrWhiteSpace(criteria.SearchTerm))
+        var matches = new List<WorksheetWordDto>();
+
+        foreach (var baseWord in _sortedBaseWords)
         {
-            var term = criteria.SearchTerm.Trim();
-            candidates = candidates.Where(w => w.Contains(term, StringComparison.OrdinalIgnoreCase));
+            var pronunciations = _byBaseWord[baseWord];
+
+            if (IsWordExcluded(pronunciations, excluded))
+                continue;
+
+            var matchingPronunciation = FindFirstMatchingPronunciation(
+                pronunciations,
+                lang,
+                criteria,
+                included,
+                phones);
+
+            if (matchingPronunciation is not null)
+                matches.Add(new WorksheetWordDto(baseWord, matchingPronunciation));
         }
 
-        var hits = new List<CmudictSearchHit>();
-        foreach (var baseWord in candidates)
+        var sampled = SampleMatches(matches, criteria.TotalWordCount, criteria.RandomSeed);
+
+        return new WorksheetGenerateResponseDto(
+            criteria.TotalWordCount,
+            matches.Count,
+            sampled.Count,
+            criteria.RandomSeed,
+            sampled);
+    }
+
+    private static bool IsWordExcluded(
+        IReadOnlyList<string> pronunciations,
+        IReadOnlyList<string> excludedTokens)
+    {
+        if (excludedTokens.Count == 0)
+            return false;
+
+        return pronunciations.Any(pronunciation =>
+            PronunciationAnalyzer.ContainsExcludedPhoneme(pronunciation, excludedTokens));
+    }
+
+    private static string? FindFirstMatchingPronunciation(
+        IReadOnlyList<string> pronunciations,
+        string lang,
+        WorksheetFilterCriteriaDto criteria,
+        IReadOnlyList<string> includedTokens,
+        PhoneInventory phones)
+    {
+        foreach (var pronunciation in pronunciations)
         {
-            var prons = _byBaseWord[baseWord];
-            bool matchPhonemes = true;
+            if (!PronunciationAnalyzer.ContainsAnyPhoneme(pronunciation, includedTokens))
+                continue;
 
-            if (!string.IsNullOrWhiteSpace(criteria.IncludedPhonemes))
-            {
-                var included = criteria.IncludedPhonemes.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                matchPhonemes = prons.Any(p => included.All(inc => p.Contains(inc, StringComparison.OrdinalIgnoreCase)));
-            }
+            if (criteria.SyllableCount is int syllableCount &&
+                !PronunciationAnalyzer.MatchesSyllableCount(pronunciation, syllableCount))
+                continue;
 
-            if (matchPhonemes && !string.IsNullOrWhiteSpace(criteria.ExcludedPhonemes))
-            {
-                var excluded = criteria.ExcludedPhonemes.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                matchPhonemes = prons.Any(p => !excluded.Any(exc => p.Contains(exc, StringComparison.OrdinalIgnoreCase)));
-            }
+            if (!string.IsNullOrWhiteSpace(criteria.IncludedSyllableStructure) &&
+                !PronunciationAnalyzer.MatchesCvStructure(
+                    lang,
+                    pronunciation,
+                    criteria.IncludedSyllableStructure,
+                    phones))
+                continue;
 
-            if (matchPhonemes)
-            {
-                hits.Add(new CmudictSearchHit(baseWord, prons.ToArray()));
-                if (hits.Count >= criteria.TotalWordCount)
-                    break;
-            }
+            return pronunciation;
         }
 
-        return hits;
+        return null;
+    }
+
+    private static List<WorksheetWordDto> SampleMatches(
+        IReadOnlyList<WorksheetWordDto> matches,
+        int totalWordCount,
+        int randomSeed)
+    {
+        if (matches.Count <= totalWordCount)
+            return matches.ToList();
+
+        var pool = matches.ToList();
+        var rng = new Random(randomSeed);
+
+        for (var i = pool.Count - 1; i > 0; i--)
+        {
+            var j = rng.Next(i + 1);
+            (pool[i], pool[j]) = (pool[j], pool[i]);
+        }
+
+        return pool.Take(totalWordCount).ToList();
     }
 }
 

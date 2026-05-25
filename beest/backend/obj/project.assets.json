@@ -2975,19 +2975,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sreej\\.nuget\\packages\\": {}
+    "/Users/williamdow/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sreej\\Downloads\\SE491-Group4\\beest\\backend\\BEEST.csproj",
+      "projectUniqueName": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
       "projectName": "BEEST",
-      "projectPath": "C:\\Users\\sreej\\Downloads\\SE491-Group4\\beest\\backend\\BEEST.csproj",
-      "packagesPath": "C:\\Users\\sreej\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sreej\\Downloads\\SE491-Group4\\beest\\backend\\obj\\",
+      "projectPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
+      "packagesPath": "/Users/williamdow/.nuget/packages/",
+      "outputPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\sreej\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/Users/williamdow/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -3054,7 +3054,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.421/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

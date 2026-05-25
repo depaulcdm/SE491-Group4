@@ -1,5 +1,6 @@
 using BEEST;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ builder.Services.Configure<LexiconOptions>(
     builder.Configuration.GetSection(LexiconOptions.SectionName));
 
 builder.Services.AddSingleton<LexiconRegistry>();
+builder.Services.AddSingleton<PhoneInventory>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -69,4 +71,42 @@ app.MapGet("/api/cmudict/search", (
     .WithName("CmudictSearch")
     .WithOpenApi();
 
+app.MapPost("/api/worksheet/generate", (
+        [FromServices] LexiconRegistry lexicons,
+        [FromServices] PhoneInventory phones,
+        [FromBody] WorksheetFilterCriteriaDto? criteria) =>
+    {
+        if (criteria is null)
+            return Results.BadRequest(new { error = "Request body is required." });
+
+        var validationResults = new List<ValidationResult>();
+        var validationContext = new ValidationContext(criteria, null, null);
+        if (!Validator.TryValidateObject(criteria, validationContext, validationResults, validateAllProperties: true))
+        {
+            var errors = validationResults
+                .SelectMany(result => result.MemberNames.DefaultIfEmpty(string.Empty), (result, member) => new
+                {
+                    Member = member,
+                    result.ErrorMessage,
+                })
+                .GroupBy(entry => entry.Member)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(entry => entry.ErrorMessage ?? "Invalid value.").ToArray());
+
+            return Results.BadRequest(new { errors });
+        }
+
+        var normalizedLang = criteria.Language.Trim().ToLowerInvariant();
+        if (!lexicons.TryGetLexicon(normalizedLang, out var lexicon) || lexicon is null)
+            return Results.BadRequest(new { error = "Invalid lang; use 'en' or 'es'." });
+
+        var response = lexicon.GenerateWorksheet(criteria, phones);
+        return Results.Ok(response);
+    })
+    .WithName("GenerateWorksheet")
+    .WithOpenApi();
+
 app.Run();
+
+public partial class Program { }

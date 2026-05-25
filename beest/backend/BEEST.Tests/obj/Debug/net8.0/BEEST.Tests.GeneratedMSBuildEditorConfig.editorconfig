@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BEEST.Tests
-build_property.ProjectDir = C:\Users\sreej\Downloads\SE491-Group4\beest\backend\BEEST.Tests\
+build_property.ProjectDir = /Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.Tests/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

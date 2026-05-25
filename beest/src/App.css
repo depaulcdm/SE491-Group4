@@ -1,4 +1,5 @@
-.search-page {
+.search-page,
+.app-page {
   min-height: 100vh;
   box-sizing: border-box;
   padding: 1.75rem clamp(1rem, 4vw, 2.5rem) 2rem;
@@ -19,11 +20,100 @@
   letter-spacing: -0.02em;
 }
 
-.search-subtitle {
-  margin: 0;
+.search-subtitle,
+.tab-subtitle {
+  margin: 0 0 1rem;
+  max-width: 52rem;
   font-size: 0.95rem;
   color: #9aa0a6;
   line-height: 1.45;
+  text-align: left;
+}
+
+.tab-bar {
+  max-width: 52rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab {
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #c4c7cc;
+  background: #242830;
+  border: 1px solid #353942;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tab:hover {
+  border-color: #6ab7ff;
+}
+
+.tab.active {
+  color: #6ab7ff;
+  border-color: #6ab7ff;
+  background: #1f2430;
+}
+
+.tab-panel {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.worksheet-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.seed-row {
+  grid-column: 1 / -1;
+}
+
+.seed-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.seed-controls .search-input {
+  flex: 1 1 auto;
+}
+
+.secondary-button {
+  flex: 0 0 auto;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e8eaed;
+  background: #1a1d23;
+  border: 1px solid #454b56;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  border-color: #6ab7ff;
+  color: #6ab7ff;
+}
+
+.worksheet-results-list {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.worksheet-results-list .result-card {
+  list-style-position: outside;
 }
 
 .search-toolbar {

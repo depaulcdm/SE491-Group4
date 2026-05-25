@@ -1,10 +1,6 @@
 using Microsoft.Extensions.Logging.Abstractions;
-using Microsoft.AspNetCore.Hosting;
 using Xunit;
 using BEEST;
-using System.IO;
-using System.Linq;
-using System;
 
 namespace BEEST.Tests;
 
@@ -14,6 +10,7 @@ public class FunctionalSearchTests : IDisposable
     private readonly string _spanishDictPath;
     private readonly CmudictLexicon _englishLexicon;
     private readonly CmudictLexicon _spanishLexicon;
+    private readonly PhoneInventory _phones;
 
     public FunctionalSearchTests()
     {
@@ -40,6 +37,7 @@ public class FunctionalSearchTests : IDisposable
 
         _englishLexicon = new CmudictLexicon(null!, _englishDictPath, logger);
         _spanishLexicon = new CmudictLexicon(null!, _spanishDictPath, logger);
+        _phones = TestPhoneInventory.CreateDefault();
     }
 
     public void Dispose()
@@ -51,79 +49,130 @@ public class FunctionalSearchTests : IDisposable
     [Fact]
     public void SuccessfulTargetWordLookup()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "hello");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var criteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "HH");
+        var response = _englishLexicon.GenerateWorksheet(criteria, _phones);
 
-        Assert.Single(results);
-        Assert.Equal("hello", results[0].Word);
-        Assert.Equal(2, results[0].Pronunciations.Count);
+        Assert.Equal(1, response.TotalMatchesFound);
+        Assert.Single(response.Results);
+        Assert.Equal("hello", response.Results[0].Word);
+        Assert.Equal("HH AH L OW", response.Results[0].Pronunciation);
     }
 
     [Fact]
     public void TextNormalization_CaseInsensitive()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "hElLo");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var criteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "hh");
+        var response = _englishLexicon.GenerateWorksheet(criteria, _phones);
 
-        Assert.Single(results);
-        Assert.Equal("hello", results[0].Word);
+        Assert.Single(response.Results);
+        Assert.Equal("hello", response.Results[0].Word);
     }
 
     [Fact]
     public void LanguageBoundaryIsolation()
     {
-        var englishCriteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "hola");
-        var englishResults = _englishLexicon.GenerateWorksheet(englishCriteria);
+        var englishCriteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "U");
+        var englishResponse = _englishLexicon.GenerateWorksheet(englishCriteria, _phones);
 
-        Assert.Empty(englishResults);
+        Assert.Empty(englishResponse.Results);
 
-        var spanishCriteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "es", SearchTerm: "hola");
-        var spanishResults = _spanishLexicon.GenerateWorksheet(spanishCriteria);
+        var spanishCriteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "es",
+            RandomSeed: 1,
+            IncludedPhonemes: "L");
+        var spanishResponse = _spanishLexicon.GenerateWorksheet(spanishCriteria, _phones);
 
-        Assert.Single(spanishResults);
-        Assert.Equal("hola", spanishResults[0].Word);
+        Assert.Single(spanishResponse.Results);
+        Assert.Equal("hola", spanishResponse.Results[0].Word);
     }
 
     [Fact]
     public void GracefulHandlingOfZeroMatches()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "nonexistent");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var criteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "ZZ");
+        var response = _englishLexicon.GenerateWorksheet(criteria, _phones);
 
-        Assert.Empty(results);
+        Assert.Empty(response.Results);
+        Assert.Equal(0, response.TotalMatchesFound);
     }
 
     [Fact]
     public void BasicFiltering_IncludedPhonemes()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "test", IncludedPhonemes: "IH");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var criteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "IH");
+        var response = _englishLexicon.GenerateWorksheet(criteria, _phones);
 
-        Assert.Single(results);
-        Assert.Equal("testing", results[0].Word);
+        Assert.Single(response.Results);
+        Assert.Equal("testing", response.Results[0].Word);
     }
 
     [Fact]
     public void BasicFiltering_ExcludedPhonemes()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "hello", ExcludedPhonemes: "EH");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var excludedByAlternatePronunciation = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "HH",
+            ExcludedPhonemes: "EH");
+        var excludedResponse = _englishLexicon.GenerateWorksheet(excludedByAlternatePronunciation, _phones);
 
-        Assert.Single(results);
-        Assert.Equal("hello", results[0].Word);
+        Assert.Empty(excludedResponse.Results);
 
-        var criteria2 = new WorksheetFilterCriteriaDto(TotalWordCount: 50, Language: "en", SearchTerm: "hello", ExcludedPhonemes: "OW");
-        var results2 = _englishLexicon.GenerateWorksheet(criteria2);
+        var excludedFromAllPronunciations = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "HH",
+            ExcludedPhonemes: "OW");
+        var emptyResponse = _englishLexicon.GenerateWorksheet(excludedFromAllPronunciations, _phones);
 
-        Assert.Empty(results2);
+        Assert.Empty(emptyResponse.Results);
+
+        var allowedCriteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 50,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "K",
+            ExcludedPhonemes: "NG");
+        var allowedResponse = _englishLexicon.GenerateWorksheet(allowedCriteria, _phones);
+
+        Assert.Contains(allowedResponse.Results, result => result.Word == "cat");
     }
 
     [Fact]
     public void TotalWordCount_LimitIsRespected()
     {
-        var criteria = new WorksheetFilterCriteriaDto(TotalWordCount: 1, Language: "en", SearchTerm: "test");
-        var results = _englishLexicon.GenerateWorksheet(criteria);
+        var criteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 1,
+            Language: "en",
+            RandomSeed: 1,
+            IncludedPhonemes: "EH");
+        var response = _englishLexicon.GenerateWorksheet(criteria, _phones);
 
-        Assert.Single(results);
+        Assert.Equal(1, response.ReturnedWordCount);
+        Assert.Single(response.Results);
+        Assert.True(response.TotalMatchesFound > 1);
     }
 }
