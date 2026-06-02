@@ -2,7 +2,6 @@ import { useState } from 'react';
 import './App.css';
 import SearchTab from './SearchTab';
 import WorksheetTab from './WorksheetTab';
-import SyllablesHelpTab from './SyllablesHelpTab';
 
 function App() {
   const [activeTab, setActiveTab] = useState('worksheet');
@@ -28,24 +27,11 @@ function App() {
         >
           Word Search
         </button>
-            <button
-  type="button"
-  className={activeTab === 'syllables' ? 'tab active' : 'tab'}
-  onClick={() => setActiveTab('syllables')}
->
-  Syllables Help
-</button>
       </nav>
 
       <main className="tab-panel">
-  {activeTab === 'search' ? (
-    <SearchTab />
-  ) : activeTab === 'syllables' ? (
-    <SyllablesHelpTab />
-  ) : (
-    <WorksheetTab />
-  )}
-</main>
+        {activeTab === 'search' ? <SearchTab /> : <WorksheetTab />}
+      </main>
     </div>
   );
 }
