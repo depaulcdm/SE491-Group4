@@ -20,12 +20,12 @@ jobs:
         dotnet-version: '8.0'
 
     - name: Restore Dependencies
-      run: dotnet restore backend/BEEST.Tests/BEEST.Tests.csproj
+      run: dotnet restore **/*Tests.csproj
 
     # Build test project
     - name: Build Test Project
-      run: dotnet build backend/BEEST.Tests/BEEST.Tests.csproj --no-restore --configuration Release
+      run: dotnet build **/*Tests.csproj --no-restore --configuration Release
 
     # Runs all tests inside BEEST.Tests project
     - name: Run Tests
-      run: dotnet test backend/BEEST.Tests/BEEST.Tests.csproj --no-build --configuration Release --verbosity normal
+      run: dotnet test **/*Tests.csproj --no-build --configuration Release --verbosity normal
