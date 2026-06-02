@@ -1,0 +1,62 @@
+[
+  {
+    "word": "casa",
+    "syllables": 2,
+    "difficulty": "easy",
+    "target_sound": "s"
+  },
+  {
+    "word": "perro",
+    "syllables": 2,
+    "difficulty": "medium",
+    "target_sound": "r"
+  },
+  {
+    "word": "mariposa",
+    "syllables": 4,
+    "difficulty": "hard",
+    "target_sound": "r"
+  },
+  {
+    "word": "sol",
+    "syllables": 1,
+    "difficulty": "easy",
+    "target_sound": "s"
+  },
+  {
+    "word": "zapato",
+    "syllables": 3,
+    "difficulty": "medium",
+    "target_sound": "z"
+  },
+  {
+    "word": "escuela",
+    "syllables": 3,
+    "difficulty": "medium",
+    "target_sound": "s"
+  },
+  {
+    "word": "raton",
+    "syllables": 2,
+    "difficulty": "easy",
+    "target_sound": "r"
+  },
+  {
+    "word": "camisa",
+    "syllables": 3,
+    "difficulty": "medium",
+    "target_sound": "s"
+  },
+  {
+    "word": "elefante",
+    "syllables": 4,
+    "difficulty": "hard",
+    "target_sound": "f"
+  },
+  {
+    "word": "pelota",
+    "syllables": 3,
+    "difficulty": "easy",
+    "target_sound": "p"
+  }
+]
