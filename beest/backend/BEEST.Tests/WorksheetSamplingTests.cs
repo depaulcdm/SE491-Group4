@@ -73,27 +73,29 @@ public class WorksheetSamplingTests : IDisposable
         Assert.Equal(10, response.Results.Count);
         Assert.Equal(20, response.RequestedWordCount);
     }
-}
-public void SeededSample_DifferentSeedsCanReturnDifferentOrder()
-{
-    var firstCriteria = new WorksheetFilterCriteriaDto(
-        TotalWordCount: 5,
-        Language: "en",
-        RandomSeed: 42,
-        IncludedPhonemes: "EH");
 
-    var secondCriteria = new WorksheetFilterCriteriaDto(
-        TotalWordCount: 5,
-        Language: "en",
-        RandomSeed: 99,
-        IncludedPhonemes: "EH");
+    [Fact]
+    public void SeededSample_DifferentSeedsCanReturnDifferentOrder()
+    {
+        var firstCriteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 5,
+            Language: "en",
+            RandomSeed: 42,
+            IncludedPhonemes: "EH");
 
-    var first = _lexicon.GenerateWorksheet(firstCriteria, _phones);
-    var second = _lexicon.GenerateWorksheet(secondCriteria, _phones);
+        var secondCriteria = new WorksheetFilterCriteriaDto(
+            TotalWordCount: 5,
+            Language: "en",
+            RandomSeed: 99,
+            IncludedPhonemes: "EH");
 
-    Assert.Equal(5, first.Results.Count);
-    Assert.Equal(5, second.Results.Count);
-    Assert.NotEqual(
-        first.Results.Select(result => result.Word).ToArray(),
-        second.Results.Select(result => result.Word).ToArray());
+        var first = _lexicon.GenerateWorksheet(firstCriteria, _phones);
+        var second = _lexicon.GenerateWorksheet(secondCriteria, _phones);
+
+        Assert.Equal(5, first.Results.Count);
+        Assert.Equal(5, second.Results.Count);
+        Assert.NotEqual(
+            first.Results.Select(result => result.Word).ToArray(),
+            second.Results.Select(result => result.Word).ToArray());
+    } 
 }
