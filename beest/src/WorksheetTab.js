@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { generateWorksheet } from './cmudictApi';
 import { PronunciationRow } from './PronunciationRow';
 import { readStoredLang, writeStoredLang } from './langStorage';
+import { saveWorksheet } from './worksheetStorage';
 
 const MAX_INT32 = 2_147_483_647;
 
@@ -31,6 +32,7 @@ export default function WorksheetTab() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const[worksheetTitle, setWorksheetTitle] = useState('')
 
   useEffect(() => {
     writeStoredLang(lang);
@@ -56,6 +58,8 @@ export default function WorksheetTab() {
     setError(null);
     setLoading(true);
     setResults(null);
+    //clear prev title
+    setWorksheetTitle('')
 
     try {
       const data = await generateWorksheet({
@@ -88,6 +92,36 @@ export default function WorksheetTab() {
     e.preventDefault();
     runGenerate();
   };
+
+  const handleSave = () => {
+    if (!worksheetTitle.trim()){
+      alert("Please enter title for generated worksheet")
+      return;
+    }
+
+    //check results 
+    if (!results || !results.results) return;
+
+  const criteria = {
+    totalWordCount: Number(totalWordCount),
+    language: lang,
+    randomSeed: results.randomSeed,
+    includedPhonemes,
+    excludedPhonemes,
+    syllableCount,
+    syllableStructure
+  }
+
+  const wordsToSave = results.results.map( item => ({
+    word: item.word, 
+    pronunciation: item.pronunciation
+  }));
+
+  saveWorksheet(worksheetTitle, lang, criteria, wordsToSave);
+
+  alert("Worksheet Saved Locally Succsesfully");
+  setWorksheetTitle('');
+};
 
   return (
     <>
@@ -231,6 +265,30 @@ export default function WorksheetTab() {
         )}
       </div>
 
+    {results && results.results.length > 0 && (
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', alignItems: 'flex-end' }}>
+          <label className="field" style={{ flexGrow: 1, margin: 0 }}>
+            <span className="field-label">Save Worksheet</span>
+            <input
+              type="text"
+              className="search-input"
+              value={worksheetTitle}
+              onChange={(e) => setWorksheetTitle(e.target.value)}
+              placeholder="Enter a title (e.g., 'C Sounds')"
+              aria-label="Worksheet Title"
+            />
+          </label>
+          <button 
+            type="button" 
+            className="search-button" 
+            onClick={handleSave}
+            style={{ margin: 0 }}
+          >
+            Save
+          </button>
+        </div>
+    )}
+      
       <div className="results-scroll">
         {results && results.results.length > 0 && (
           <ol className="worksheet-results-list">

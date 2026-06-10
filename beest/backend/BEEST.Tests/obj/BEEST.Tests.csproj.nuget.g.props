@@ -4,25 +4,25 @@
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
-    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/var/folders/z6/509frhp1189d0hsh2ms4mfqm0000gn/T/cursor-sandbox-cache/e73d0d2177ae4cbc3b868f4b750952bf/nuget</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/var/folders/z6/509frhp1189d0hsh2ms4mfqm0000gn/T/cursor-sandbox-cache/e73d0d2177ae4cbc3b868f4b750952bf/nuget</NuGetPackageFolders>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Crist\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.11.1</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.14.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="/var/folders/z6/509frhp1189d0hsh2ms4mfqm0000gn/T/cursor-sandbox-cache/e73d0d2177ae4cbc3b868f4b750952bf/nuget/" />
+    <SourceRoot Include="C:\Users\Crist\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)/xunit.runner.visualstudio/3.1.5/build/net8.0/xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)/xunit.runner.visualstudio/3.1.5/build/net8.0/xunit.runner.visualstudio.props')" />
-    <Import Project="$(NuGetPackageRoot)/xunit.core/2.9.3/build/xunit.core.props" Condition="Exists('$(NuGetPackageRoot)/xunit.core/2.9.3/build/xunit.core.props')" />
-    <Import Project="$(NuGetPackageRoot)/microsoft.testplatform.testhost/18.5.1/build/net8.0/Microsoft.TestPlatform.TestHost.props" Condition="Exists('$(NuGetPackageRoot)/microsoft.testplatform.testhost/18.5.1/build/net8.0/Microsoft.TestPlatform.TestHost.props')" />
-    <Import Project="$(NuGetPackageRoot)/microsoft.codecoverage/18.5.1/build/netstandard2.0/Microsoft.CodeCoverage.props" Condition="Exists('$(NuGetPackageRoot)/microsoft.codecoverage/18.5.1/build/netstandard2.0/Microsoft.CodeCoverage.props')" />
-    <Import Project="$(NuGetPackageRoot)/microsoft.net.test.sdk/18.5.1/build/net8.0/Microsoft.NET.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)/microsoft.net.test.sdk/18.5.1/build/net8.0/Microsoft.NET.Test.Sdk.props')" />
-    <Import Project="$(NuGetPackageRoot)/microsoft.extensions.configuration.usersecrets/8.0.1/buildTransitive/net6.0/Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)/microsoft.extensions.configuration.usersecrets/8.0.1/buildTransitive/net6.0/Microsoft.Extensions.Configuration.UserSecrets.props')" />
-    <Import Project="$(NuGetPackageRoot)/microsoft.entityframeworkcore/8.0.0/buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)/microsoft.entityframeworkcore/8.0.0/buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props')" />
+    <Import Project="$(NuGetPackageRoot)xunit.runner.visualstudio\3.1.5\build\net8.0\xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.visualstudio\3.1.5\build\net8.0\xunit.runner.visualstudio.props')" />
+    <Import Project="$(NuGetPackageRoot)xunit.core\2.9.3\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.9.3\build\xunit.core.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.testplatform.testhost\18.5.1\build\net8.0\Microsoft.TestPlatform.TestHost.props" Condition="Exists('$(NuGetPackageRoot)microsoft.testplatform.testhost\18.5.1\build\net8.0\Microsoft.TestPlatform.TestHost.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\18.5.1\build\netstandard2.0\Microsoft.CodeCoverage.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\18.5.1\build\netstandard2.0\Microsoft.CodeCoverage.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\18.5.1\build\net8.0\Microsoft.NET.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\18.5.1\build\net8.0\Microsoft.NET.Test.Sdk.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\8.0.1\buildTransitive\net6.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\8.0.1\buildTransitive\net6.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.0\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.0\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/var/folders/z6/509frhp1189d0hsh2ms4mfqm0000gn/T/cursor-sandbox-cache/e73d0d2177ae4cbc3b868f4b750952bf/nuget/xunit.analyzers/1.18.0</Pkgxunit_analyzers>
-    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/var/folders/z6/509frhp1189d0hsh2ms4mfqm0000gn/T/cursor-sandbox-cache/e73d0d2177ae4cbc3b868f4b750952bf/nuget/microsoft.extensions.apidescription.server/6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\Crist\.nuget\packages\xunit.analyzers\1.18.0</Pkgxunit_analyzers>
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\Crist\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
   </PropertyGroup>
 </Project>

@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj": {}
+    "C:\\Users\\Crist\\Documents\\SE491-Group4\\beest\\backend\\BEEST.csproj": {}
   },
   "projects": {
-    "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj": {
+    "C:\\Users\\Crist\\Documents\\SE491-Group4\\beest\\backend\\BEEST.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
+        "projectUniqueName": "C:\\Users\\Crist\\Documents\\SE491-Group4\\beest\\backend\\BEEST.csproj",
         "projectName": "BEEST",
-        "projectPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/BEEST.csproj",
-        "packagesPath": "/Users/williamdow/.nuget/packages/",
-        "outputPath": "/Users/williamdow/Desktop/School/DePaul/Graduate/Spring 2026/SE 491/Github Repo/SE491-Group4/beest/backend/obj/",
+        "projectPath": "C:\\Users\\Crist\\Documents\\SE491-Group4\\beest\\backend\\BEEST.csproj",
+        "packagesPath": "C:\\Users\\Crist\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Crist\\Documents\\SE491-Group4\\beest\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/williamdow/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Crist\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,7 +39,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -81,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.309/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
