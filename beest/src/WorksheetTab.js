@@ -32,7 +32,8 @@ export default function WorksheetTab() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const[worksheetTitle, setWorksheetTitle] = useState('')
+  const [worksheetTitle, setWorksheetTitle] = useState('');
+  const [seedHelpOpen, setSeedHelpOpen] = useState(false);
 
   useEffect(() => {
     writeStoredLang(lang);
@@ -221,9 +222,26 @@ export default function WorksheetTab() {
         </label>
 
         <div className="field seed-row">
-          <label className="field-label" htmlFor="random-seed">
-            Random seed
-          </label>
+          <div className="seed-label-row">
+            <label className="field-label" htmlFor="random-seed">
+              Random seed
+            </label>
+            <button
+              type="button"
+              className="seed-help-button"
+              onClick={() => setSeedHelpOpen((v) => !v)}
+              aria-expanded={seedHelpOpen}
+              aria-label="Random seed help"
+            >
+              ?
+            </button>
+          </div>
+          {seedHelpOpen && (
+            <p className="seed-help-text">
+              The random seed influences which words are selected, and in what order, based on other matching criteria.
+              Using the same seed number with the same filters will always produce the same worksheet.
+            </p>
+          )}
           <div className="seed-controls">
             <input
               id="random-seed"

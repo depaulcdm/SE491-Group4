@@ -1,16 +1,29 @@
 import { useState } from 'react';
 import './App.css';
 import SearchTab from './SearchTab';
+import SyllablesHelpButton from './SyllablesHelpButton';
+import SyllablesHelpOverlay from './SyllablesHelpOverlay';
 import WorksheetTab from './WorksheetTab';
+import { readStoredLang } from './langStorage';
 
 function App() {
   const [activeTab, setActiveTab] = useState('worksheet');
+  const [helpOpen, setHelpOpen] = useState(false);
 
   return (
     <div className="app-page">
-      <header className="search-header">
+      <SyllablesHelpButton onOpen={() => setHelpOpen(true)} />
+
+      <header className="search-header app-header">
         <h1 className="search-title">B.E.E.S.T.</h1>
       </header>
+
+      {helpOpen && (
+        <SyllablesHelpOverlay
+          initialLang={readStoredLang()}
+          onClose={() => setHelpOpen(false)}
+        />
+      )}
 
       <nav className="tab-bar" aria-label="Main navigation">
         <button
