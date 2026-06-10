@@ -15,7 +15,7 @@ function App() {
       <SyllablesHelpButton onOpen={() => setHelpOpen(true)} />
 
       <header className="search-header app-header">
-        <h1 className="search-title">B.E.E.S.T.</h1>
+        <h1 className="search-title">B.E.S.S.T.</h1>
       </header>
 
       {helpOpen && (
